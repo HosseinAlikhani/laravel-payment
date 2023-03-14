@@ -1,5 +1,5 @@
 <?php
-namespace Modular\payment\Routes;
+namespace D3CR33\Payment\Routes;
 
 use Illuminate\Contracts\Routing\Registrar as Router;
 

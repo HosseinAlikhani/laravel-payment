@@ -1,8 +1,8 @@
 <?php
-namespace Modular\Payment\Routes;
+namespace D3CR33\Payment\Routes;
 
 use Illuminate\Contracts\Routing\Registrar as Router;
-use Modular\Payment\Http\Controllers\PaymentController;
+use D3CR33\Payment\Http\Controllers\PaymentController;
 
 class WebRoutes
 {

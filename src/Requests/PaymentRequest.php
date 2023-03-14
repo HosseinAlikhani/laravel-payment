@@ -1,9 +1,9 @@
 <?php
-namespace Modular\Payment\Requests;
+namespace D3CR33\Payment\Requests;
 
 use Exception;
-use Modular\Payment\Exceptions\PaymentRequestException;
-use Modular\Payment\Port\PortConfig;
+use D3CR33\Payment\Exceptions\PaymentRequestException;
+use D3CR33\Payment\Port\PortConfig;
 
 final class PaymentRequest
 {

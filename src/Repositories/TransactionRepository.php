@@ -1,8 +1,8 @@
 <?php
-namespace Modular\Payment\Repositories;
+namespace D3CR33\Payment\Repositories;
 
 use Modular\Infrastructure\Base\BaseRepository;
-use Modular\Payment\Models\Transaction;
+use D3CR33\Payment\Models\Transaction;
 
 class TransactionRepository extends BaseRepository
 {

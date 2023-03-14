@@ -1,6 +1,6 @@
 <?php
 
-namespace Modular\Payment\Models;
+namespace D3CR33\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -1,9 +1,9 @@
 <?php
-namespace Modular\Payment\Services;
+namespace D3CR33\Payment\Services;
 
 use Illuminate\Http\Response;
-use Modular\Payment\Repositories\TransactionRepository;
-use Modular\Payment\Requests\PaymentRequest;
+use D3CR33\Payment\Repositories\TransactionRepository;
+use D3CR33\Payment\Requests\PaymentRequest;
 
 final class PaymentService
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Modular\Payment\Models;
+namespace D3CR33\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Modular\Payment\Port\PortConfig;
+use D3CR33\Payment\Port\PortConfig;
 
 class Transaction extends Model
 {

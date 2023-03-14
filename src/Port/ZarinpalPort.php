@@ -1,9 +1,9 @@
 <?php
-namespace Modular\Payment\Port;
+namespace D3CR33\Payment\Port;
 
 use Exception;
-use Modular\Payment\Exceptions\PortGatewayException;
-use Modular\Payment\Exceptions\ZarinpalException;
+use D3CR33\Payment\Exceptions\PortGatewayException;
+use D3CR33\Payment\Exceptions\ZarinpalException;
 use SoapClient;
 
 class ZarinpalPort extends PortGateway

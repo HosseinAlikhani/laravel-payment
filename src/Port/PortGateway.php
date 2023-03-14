@@ -1,11 +1,11 @@
 <?php
-namespace Modular\Payment\Port;
+namespace D3CR33\Payment\Port;
 
-use Modular\Payment\Models\GatewayTransaction;
-use Modular\Payment\Models\Transaction;
-use Modular\Payment\Repositories\GatewayTransactionRepository;
-use Modular\Payment\Repositories\TransactionRepository;
-use Modular\Payment\Response\PortResponse;
+use D3CR33\Payment\Models\GatewayTransaction;
+use D3CR33\Payment\Models\Transaction;
+use D3CR33\Payment\Repositories\GatewayTransactionRepository;
+use D3CR33\Payment\Repositories\TransactionRepository;
+use D3CR33\Payment\Response\PortResponse;
 
 abstract class PortGateway
 {

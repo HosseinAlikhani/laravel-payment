@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Modular\Payment\Models\GatewayTransaction;
+use D3CR33\Payment\Models\GatewayTransaction;
 
 return new class extends Migration
 {
