@@ -1,0 +1,82 @@
+<?php
+namespace Modular\Payment\Port;
+
+use Exception;
+use Modular\Payment\Exceptions\PortConfigException;
+
+final class PortConfig
+{
+    public const AVAILABLE_PORT = [
+        1   =>  'zarinpal'
+    ];
+
+    private const PORT_NAMESPACE = [
+        'zarinpal'  =>  ZarinpalPort::class
+    ];
+
+    /**
+     * store api key
+     * @var string
+     */
+    public string $apiKey;
+
+    /**
+     * store send url
+     * @var string
+     */
+    public string $send;
+
+    /**
+     * store gate url
+     * @var string
+     */
+    public string $gate;
+
+    /**
+     * store callback url
+     * @var string
+     */
+    public string $callbackUrl;
+
+    /**
+     * port config constructor
+     * @param string $port
+     */
+    public function __construct(string $port)
+    {
+        $this->initialize($port);
+    }
+
+    /**
+     * initialize port config + set property
+     * @param string $port
+     * @return void
+     */
+    public function initialize(string $port): void
+    {
+        try{
+            $config = config('payment.'.strtoupper($port));
+            $this->apiKey = $config['API_KEY'];
+            $this->callbackUrl = $config['PAYMENT_CALLBACK'] ?? config('payment.PAYMENT_CALLBACK');
+            if ( isset($config['IS_TEST']) ) {
+                $this->send = $config['TEST_SEND'];
+                $this->gate = $config['TEST_GATE'];
+            }else {
+                $this->send = $config['SEND'];
+                $this->gate = $config['GATE'];
+            }
+        }catch(Exception $e){
+            throw new PortConfigException($e);
+        }
+    }
+
+    /**
+     * return port namespace
+     * @param int $port
+     * @return string
+     */
+    public static function getPortNamespace(int $port): string
+    {
+        return self::PORT_NAMESPACE[ self::AVAILABLE_PORT[$port] ];
+    }
+}
