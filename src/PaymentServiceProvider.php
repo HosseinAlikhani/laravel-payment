@@ -1,6 +1,6 @@
 <?php
 
-namespace Modular\Payment;
+namespace D3CR33\Payment;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,7 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/Config/payment.php', 'payment');
+        $this->mergeConfigFrom(__DIR__.'/../Config/payment.php', 'payment');
     }
 
     /**
@@ -36,9 +36,9 @@ class PaymentServiceProvider extends ServiceProvider
      */
     private function loadRequirements()
     {
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/Lang', 'payment');
+        $this->loadTranslationsFrom(__DIR__.'/../Lang', 'payment');
     }
 
     /**
@@ -47,7 +47,7 @@ class PaymentServiceProvider extends ServiceProvider
     private function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'/Config/payment.php' => config_path('payment.php'),
+            __DIR__.'/../Config/payment.php' => config_path('payment.php'),
         ], 'payment-config');
     }
 }
