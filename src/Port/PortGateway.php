@@ -40,31 +40,6 @@ abstract class PortGateway
     protected PortResponse $portResponse;
 
     /**
-     * store gateway transaction repository
-     * @var GatewayTransactionRepository
-     */
-    private GatewayTransactionRepository $gatewayTransactionRepository;
-
-    /**
-     * store transaction repository
-     * @var TransactionRepository
-     */
-    private TransactionRepository $transactionRepository;
-
-    /**
-     * constructor of port gateway
-     * @param GatewayTransactionRepository $gatewayTransactionRepository
-     */
-    public function __construct(
-        GatewayTransactionRepository $gatewayTransactionRepository,
-        TransactionRepository $transactionRepository
-    )
-    {
-        $this->transactionRepository = $transactionRepository;
-        $this->gatewayTransactionRepository = $gatewayTransactionRepository;
-    }
-
-    /**
      * initialize port
      * @param Transaction $transaction
      * @return self
@@ -106,7 +81,7 @@ abstract class PortGateway
      */
     public function createGatewayTransaction(): self
     {
-        return $this->setGatewayTransaction($this->gatewayTransactionRepository->createGatewayTransaction([
+        return $this->setGatewayTransaction(app(GatewayTransactionRepository::class)->createGatewayTransaction([
             'transaction_id'    =>  $this->transaction->id,
             'port'  =>  $this->transaction->port,
             'amount'    =>  $this->transaction->amount,
@@ -119,7 +94,7 @@ abstract class PortGateway
      */
     protected function createLog()
     {
-        return $this->gatewayTransactionRepository->createGatewayTransactionLog($this->gatewayTransaction->id,[
+        return app(GatewayTransactionRepository::class)->createGatewayTransactionLog($this->gatewayTransaction->id,[
             'result_status' =>  $this->portResponse->statusCode,
             'result_message'    =>  $this->portResponse->message
         ]);
@@ -131,11 +106,11 @@ abstract class PortGateway
      */
     public function paymentSucceed(): void
     {
-        $this->transactionRepository->updateTransaction($this->transaction->id, [
+        app(TransactionRepository::class)->updateTransaction($this->transaction->id, [
             'status'    =>  Transaction::STATUS_SUCCEED
         ]);
 
-        $this->gatewayTransactionRepository->updateGatewayTransaction($this->gatewayTransaction->id,[
+        app(GatewayTransactionRepository::class)->updateGatewayTransaction($this->gatewayTransaction->id,[
             'status'    =>  GatewayTransaction::STATUS_SUCCEED,
             'payment_at'    =>  now()
         ]);
@@ -147,11 +122,11 @@ abstract class PortGateway
      */
     public function paymentFailed(): void
     {
-        $this->transactionRepository->updateTransaction($this->transaction->id, [
+        app(TransactionRepository::class)->updateTransaction($this->transaction->id, [
             'status'    =>  Transaction::STATUS_FAILED
         ]);
 
-        $this->gatewayTransactionRepository->updateGatewayTransaction($this->gatewayTransaction->id,[
+        app(GatewayTransactionRepository::class)->updateGatewayTransaction($this->gatewayTransaction->id,[
             'status'    =>  GatewayTransaction::STATUS_FAILED,
         ]);
     }
@@ -161,7 +136,7 @@ abstract class PortGateway
      */
     protected function setRefToGatewayTransaction()
     {
-        $this->gatewayTransactionRepository
+        app(GatewayTransactionRepository::class)
             ->updateGatewayTransaction($this->gatewayTransaction->id,[
                 'ref_id'    =>  $this->portResponse->authority
             ]);
