@@ -4,6 +4,7 @@ namespace D3CR33\Payment\Port;
 use Exception;
 use D3CR33\Payment\Exceptions\PortGatewayException;
 use D3CR33\Payment\Exceptions\ZarinpalException;
+use D3CR33\Payment\Models\GatewayTransaction;
 use SoapClient;
 
 class ZarinpalPort extends PortGateway
@@ -59,10 +60,18 @@ class ZarinpalPort extends PortGateway
      */
     public function verify(array $verifyData)
     {
-        if ( isset($verifyData['Status']) && $verifyData['Status'] === 'NOK'){
+        if ( $this->gatewayTransaction->status != GatewayTransaction::STATUS_INIT ) {
             return [
                 'status'    =>  false,
-                'message'   =>  'درخواست شما کنسل شده است.'
+                'message'   =>  trans('payment::messages.payment_submited_before')
+            ];
+        }
+
+        if ( isset($verifyData['Status']) && $verifyData['Status'] === 'NOK'){
+            $this->paymentFailed();
+            return [
+                'status'    =>  false,
+                'message'   =>  trans('payment::messages.payment_canceld')
             ];
         }
 
@@ -75,17 +84,26 @@ class ZarinpalPort extends PortGateway
             $this->setResponse($client->PaymentVerification([
                 'MerchantID'     => $this->portConfig->apiKey,
                 'Authority' => $verifyData['Authority'],
-                'Amount' => 1200
+                'Amount' => $this->amount
             ]));
 
             if( $this->portResponse->status ) {
                 $this->paymentSucceed();
+                return [
+                    'status'    =>  true,
+                    'message'   =>  trans('payment::messages.payment_succeed')
+                ];
             } else {
                 $this->paymentFailed();
                 $this->createLog();
+                return [
+                    'status'    =>  false,
+                    'message'   =>  ZarinpalException::getMessageFromStatusCode($this->portResponse->statusCode)
+                ];
             }
         }catch(Exception $e){
-
+            $this->paymentFailed();
+            $this->createLog();
         }
     }
 
