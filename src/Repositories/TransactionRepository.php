@@ -37,7 +37,14 @@ class TransactionRepository extends BaseRepository
     {
         $transactionData['tracking_code'] = $this->model->generateTrackingCode();
         $transactionData['status'] = Transaction::STATUS_INIT;
-        return $this->create($transactionData);
+        $transaction = $this->create($transactionData);
+        if ( isset($transactionData['callback']) && isset($transactionData['callback_data']) ){
+            $transaction->callback()->create([
+                'callback'  =>  $transactionData['callback'],
+                'callback_data' =>  $transactionData['callback_data']
+            ]);
+        }
+        return $transaction;
     }
 
     /**
