@@ -4,12 +4,13 @@ namespace D3CR33\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use D3CR33\Payment\Port\PortConfig;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -30,7 +31,7 @@ class Transaction extends Model
      * get port namespace
      * @return string
      */
-    public function getPortNamespace(): string
+    public function portNamespace(): string
     {
         return PortConfig::getPortNamespace($this->port);
     }
@@ -41,5 +42,30 @@ class Transaction extends Model
     public function gatewayTransaction()
     {
         return $this->hasOne(GatewayTransaction::class, 'transaction_id', 'id');
+    }
+
+    /**
+     * transaction callback relation
+     */
+    public function callback()
+    {
+        return $this->hasOne(TransactionCallback::class, 'transaction_id', 'id');
+    }
+
+    /**
+     * dispatch transaction callback
+     */
+    public function dispatchCallback()
+    {
+        $callback = $this->callback;
+        if (! $callback) {
+            return true;
+        }
+
+        $callback->callback::dispatch($callback->callback_data);
+        $callback->update([
+            'is_callback_send'  =>  true
+        ]);
+        return true;
     }
 }
