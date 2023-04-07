@@ -27,6 +27,8 @@ final class PaymentService
      * @param int $paymentData[amount]
      * @param string $paymentData[description]
      * @param int $paymentData[port]
+     * @param string $paymentData[callback]
+     * $param array $paymentData[callback_data]
      */
     public function payment(array $paymentData)
     {
@@ -34,7 +36,7 @@ final class PaymentService
 
         $transaction = $this->transactionRepository->createTransaction($paymentRequest->toArray());
 
-        return app($transaction->getPortNamespace())
+        return app($transaction->portNamespace())
             ->initialize($transaction)
             ->createGatewayTransaction()
             ->send();
@@ -54,8 +56,15 @@ final class PaymentService
             ];
         }
 
-        return app($transaction->getPortNamespace())
+        $response = app($transaction->portNamespace())
             ->initialize($transaction, $transaction->gatewayTransaction)
             ->verify($callbackData);
+        if(! $response['status'] ){
+            return $response;
+        }
+        
+        $transaction->dispatchCallback();
+
+        return $response;
     }
 }
