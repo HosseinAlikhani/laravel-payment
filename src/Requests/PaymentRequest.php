@@ -41,13 +41,25 @@ final class PaymentRequest
      * store description
      * @var string
      */
-    public string $description;
+    public string|null $description;
 
     /**
      * store port
      * @var int
      */
     public int $port;
+
+    /**
+     * store callback
+     * @var string|null
+     */
+    public string|null $callback;
+
+    /**
+     * store callback data
+     * @var array|null
+     */
+    public array|null $callbackData;
 
     /**
      * set available module
@@ -78,6 +90,8 @@ final class PaymentRequest
             $this->amount = $paymentData['amount'];
             $this->description = $paymentData['description'];
             $this->port = $this->checkPort($paymentData['port']);
+            $this->callback = $paymentData['callback'] ?? null;
+            $this->callbackData = $paymentData['callback_data'] ?? null;
         }catch(Exception $e){
             throw new PaymentRequestException($e);
         }
@@ -124,7 +138,9 @@ final class PaymentRequest
             'module'    =>  $this->module,
             'amount'    =>  $this->amount,
             'description'   =>  $this->description,
-            'port'  =>  $this->port
+            'port'  =>  $this->port,
+            'callback'  =>  $this->callback,
+            'callback_data' =>  $this->callbackData
         ];
     }
 }
