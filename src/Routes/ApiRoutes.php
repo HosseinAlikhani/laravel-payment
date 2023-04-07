@@ -2,6 +2,7 @@
 namespace D3CR33\Payment\Routes;
 
 use Illuminate\Contracts\Routing\Registrar as Router;
+use D3CR33\Payment\Http\Controllers\PortController;
 
 class ApiRoutes
 {
@@ -14,8 +15,13 @@ class ApiRoutes
 
     public function all()
     {
-        $this->router->get('payment', function(){
+        $this->port();
+    }
 
+    public function port()
+    {
+        $this->router->group(['prefix' => 'ports'], function($router){
+            $router->get('', [PortController::class, 'getPorts']);
         });
     }
 }
