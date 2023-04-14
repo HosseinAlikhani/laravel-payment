@@ -1,16 +1,10 @@
 <?php
 namespace D3cr33\Payment\Repositories;
 
-use Modular\Infrastructure\Base\BaseRepository;
 use D3cr33\Payment\Models\Transaction;
 
-class TransactionRepository extends BaseRepository
+class TransactionRepository
 {
-    public function __construct(Transaction $transaction)
-    {
-        parent::__construct($transaction);
-    }
-
     /**
      * find gateway transaction by ref id
      * @param string $refId
@@ -23,7 +17,7 @@ class TransactionRepository extends BaseRepository
             return null;
         }
 
-        return $this->findById($gatewayTransaction->transaction_id)
+        return Transaction::where('id', $gatewayTransaction->transaction_id)
             ->with(['gatewayTransaction'])
             ->first();
     }
@@ -35,9 +29,9 @@ class TransactionRepository extends BaseRepository
      */
     public function createTransaction(array $transactionData): Transaction|null
     {
-        $transactionData['tracking_code'] = $this->model->generateTrackingCode();
+        $transactionData['tracking_code'] = (new Transaction())->generateTrackingCode();
         $transactionData['status'] = Transaction::STATUS_INIT;
-        $transaction = $this->create($transactionData);
+        $transaction = Transaction::create($transactionData);
         if ( isset($transactionData['callback']) && isset($transactionData['callback_data']) ){
             $transaction->callback()->create([
                 'callback'  =>  $transactionData['callback'],
@@ -55,10 +49,10 @@ class TransactionRepository extends BaseRepository
      */
     public function updateTransaction(int $transactionId, array $transactionData): bool
     {
-        $transaction = $this->findById($transactionId)->first();
+        $transaction = Transaction::where('id', $transactionId)->first();
         if(! $transaction ){
             return false;
         }
-        return $this->findById($transactionId)->update($transactionData);
+        return $transaction->update($transactionData);
     }
 }
