@@ -1,6 +1,6 @@
 <?php
 
-namespace D3CR33\Payment;
+namespace D3cr33\Payment;
 
 use Illuminate\Support\ServiceProvider;
 

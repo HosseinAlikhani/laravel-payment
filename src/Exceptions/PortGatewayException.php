@@ -1,5 +1,5 @@
 <?php
-namespace D3CR33\Payment\Exceptions;
+namespace D3cr33\Payment\Exceptions;
 
 use Exception;
 

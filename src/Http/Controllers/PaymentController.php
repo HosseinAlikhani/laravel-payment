@@ -1,8 +1,8 @@
 <?php
-namespace D3CR33\Payment\Http\Controllers;
+namespace D3cr33\Payment\Http\Controllers;
 
 use Illuminate\Http\Request;
-use D3CR33\Payment\Services\PaymentService;
+use D3cr33\Payment\Services\PaymentService;
 
 class PaymentController
 {

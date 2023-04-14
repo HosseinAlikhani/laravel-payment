@@ -1,9 +1,9 @@
 <?php
-namespace D3CR33\Payment;
+namespace D3cr33\Payment;
 
 use Illuminate\Support\Facades\Route;
-use D3CR33\Payment\Routes\ApiRoutes;
-use D3CR33\Payment\Routes\WebRoutes;
+use D3cr33\Payment\Routes\ApiRoutes;
+use D3cr33\Payment\Routes\WebRoutes;
 
 final class Payment
 {

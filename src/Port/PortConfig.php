@@ -1,8 +1,8 @@
 <?php
-namespace D3CR33\Payment\Port;
+namespace D3cr33\Payment\Port;
 
 use Exception;
-use D3CR33\Payment\Exceptions\PortConfigException;
+use D3cr33\Payment\Exceptions\PortConfigException;
 
 final class PortConfig
 {

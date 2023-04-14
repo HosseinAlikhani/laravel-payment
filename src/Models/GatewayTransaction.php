@@ -1,6 +1,6 @@
 <?php
 
-namespace D3CR33\Payment\Models;
+namespace D3cr33\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +9,7 @@ class GatewayTransaction extends Model
 {
     use HasFactory;
 
+    protected $table = 'payment_gateway_transactions';
     protected $guarded = ['id'];
 
     public const STATUS_INIT = 1;

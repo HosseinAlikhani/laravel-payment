@@ -1,8 +1,8 @@
 <?php
-namespace D3CR33\Payment\Http\Controllers;
+namespace D3cr33\Payment\Http\Controllers;
 
 use Illuminate\Http\Request;
-use D3CR33\Payment\Port\PortConfig;
+use D3cr33\Payment\Port\PortConfig;
 
 class PortController
 {

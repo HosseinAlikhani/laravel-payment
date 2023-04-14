@@ -1,9 +1,9 @@
 <?php
-namespace D3CR33\Payment\Repositories;
+namespace D3cr33\Payment\Repositories;
 
 use Modular\Infrastructure\Base\BaseRepository;
-use D3CR33\Payment\Models\GatewayTransaction;
-use D3CR33\Payment\Models\GatewayTransactionLog;
+use D3cr33\Payment\Models\GatewayTransaction;
+use D3cr33\Payment\Models\GatewayTransactionLog;
 
 class GatewayTransactionRepository extends BaseRepository
 {

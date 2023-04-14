@@ -1,17 +1,18 @@
 <?php
 
-namespace D3CR33\Payment\Models;
+namespace D3cr33\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use D3CR33\Payment\Port\PortConfig;
+use D3cr33\Payment\Port\PortConfig;
 
 class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'payment_transactions';
     protected $guarded = ['id'];
 
     public const STATUS_INIT = 1;

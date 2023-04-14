@@ -1,8 +1,8 @@
 <?php
-namespace D3CR33\Payment\Response;
+namespace D3cr33\Payment\Response;
 
 use Exception;
-use D3CR33\Payment\Exceptions\PortResponseException;
+use D3cr33\Payment\Exceptions\PortResponseException;
 
 final class PortResponse
 {
