@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaction_callbacks', function (Blueprint $table) {
+        Schema::create('payment_gateway_transaction_logs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transaction_id');
-            $table->string('callback');
-            $table->text('callback_data');
-            $table->boolean('is_callback_send')->default(0);
-            $table->timestamps();
+            $table->unsignedBigInteger('gateway_transaction_id');
+            $table->string('result_status');
+            $table->string('result_message');
+            $table->timestamp('created_at');
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_callbacks');
+        Schema::dropIfExists('payment_gateway_transaction_logs');
     }
 };
