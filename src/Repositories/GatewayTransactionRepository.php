@@ -1,17 +1,11 @@
 <?php
 namespace D3cr33\Payment\Repositories;
 
-use Modular\Infrastructure\Base\BaseRepository;
 use D3cr33\Payment\Models\GatewayTransaction;
 use D3cr33\Payment\Models\GatewayTransactionLog;
 
-class GatewayTransactionRepository extends BaseRepository
+class GatewayTransactionRepository
 {
-    public function __construct(GatewayTransaction $gatewayTransaction)
-    {
-        parent::__construct($gatewayTransaction);
-    }
-
     /**
      * find gateway transaction by ref id
      * @param string $refId
@@ -19,7 +13,7 @@ class GatewayTransactionRepository extends BaseRepository
      */
     public function findGatewayTransactionByRefId(string $refId): GatewayTransaction|null
     {
-        return $this->where('ref_id', '=', $refId)->first();
+        return GatewayTransaction::where('ref_id', '=', $refId)->first();
     }
 
     /**
@@ -29,9 +23,9 @@ class GatewayTransactionRepository extends BaseRepository
      */
     public function createGatewayTransaction(array $gatewayTransactionData): GatewayTransaction|null
     {
-        $gatewayTransactionData['tracking_code'] = $this->model->generateTrackingCode();
+        $gatewayTransactionData['tracking_code'] = (new GatewayTransaction)->generateTrackingCode();
         $gatewayTransactionData['status'] = GatewayTransaction::STATUS_INIT;
-        return $this->create($gatewayTransactionData);
+        return GatewayTransaction::create($gatewayTransactionData);
     }
 
     /**
@@ -42,7 +36,7 @@ class GatewayTransactionRepository extends BaseRepository
      */
     public function createGatewayTransactionLog(int $gatewayTransactionId, array $logData): GatewayTransactionLog|null
     {
-        $gatewayTransaction = $this->findById($gatewayTransactionId)
+        $gatewayTransaction = GatewayTransaction::where('id', $gatewayTransactionId)
             ->first();
 
         if (! $gatewayTransaction ){
@@ -59,6 +53,6 @@ class GatewayTransactionRepository extends BaseRepository
      */
     public function updateGatewayTransaction(int $gatewayTransactionId, array $gatewayTransactionData)
     {
-        $this->findById($gatewayTransactionId)->update($gatewayTransactionData);
+        GatewayTransaction::where('id', $gatewayTransactionId)->update($gatewayTransactionData);
     }
 }
