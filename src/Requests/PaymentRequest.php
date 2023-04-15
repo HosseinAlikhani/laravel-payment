@@ -61,6 +61,7 @@ final class PaymentRequest
      */
     public array|null $callbackData;
 
+    //TODO need set dynamic
     /**
      * set available module
      * @var array

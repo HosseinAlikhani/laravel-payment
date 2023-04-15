@@ -39,6 +39,8 @@ class PaymentServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
 
         $this->loadTranslationsFrom(__DIR__.'/../Lang', 'payment');
+
+        $this->loadViewsFrom(__DIR__.'/../Views', 'payment');
     }
 
     /**
@@ -49,5 +51,9 @@ class PaymentServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../Config/payment.php' => config_path('payment.php'),
         ], 'payment-config');
+
+        $this->publishes([
+            __DIR__.'/../Views' => resource_path('views/vendor/payment'),
+        ]);
     }
 }
