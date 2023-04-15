@@ -25,7 +25,6 @@ class PaymentController
     public function getPaymentCallback()
     {
         $response = app(PaymentService::class)->paymentCallback($this->request->all());
-        //TODO must set payment view
-        return view('payment', compact('response'));
+        return view('payment::payment', compact('response'));
     }
 }
