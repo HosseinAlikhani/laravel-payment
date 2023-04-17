@@ -76,6 +76,14 @@ abstract class PortGateway
     }
 
     /**
+     * get transaction callback data
+     */
+    protected function getTransactionCallbackData()
+    {
+        return optional($this->transaction->callback)->callback_data;
+    }
+
+    /**
      * create gateway transaction
      * @return self
      */
