@@ -7,12 +7,7 @@
     <title>Document</title>
 </head>
 <body style="text-align: center">
-    @if( $response['status'] )
-        <h5>SUCCESS</h5>
-    @else
-        <h5>FAILED</h5>
-    @endif
-
+    <h5>SUCCESS</h5>
     <h3> {{ $response['message'] }} </h3>
 </body>
 </html>
