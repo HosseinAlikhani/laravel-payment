@@ -91,7 +91,8 @@ class ZarinpalPort extends PortGateway
                 $this->paymentSucceed();
                 return [
                     'status'    =>  true,
-                    'message'   =>  trans('payment::messages.payment_succeed')
+                    'message'   =>  trans('payment::messages.payment_succeed'),
+                    'data'  =>  $this->getTransactionCallbackData()
                 ];
             } else {
                 $this->paymentFailed();
