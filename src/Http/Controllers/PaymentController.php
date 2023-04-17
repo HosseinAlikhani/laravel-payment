@@ -25,6 +25,9 @@ class PaymentController
     public function getPaymentCallback()
     {
         $response = app(PaymentService::class)->paymentCallback($this->request->all());
-        return view('payment::payment', compact('response'));
+        if(isset($response['status'])){
+            return view('payment::payment-success', compact('response'));
+        }
+        return view('payment::payment-failed', compact('response'));
     }
 }
