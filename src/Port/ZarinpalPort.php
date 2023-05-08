@@ -2,7 +2,6 @@
 namespace D3cr33\Payment\Port;
 
 use Exception;
-use D3cr33\Payment\Exceptions\PortGatewayException;
 use D3cr33\Payment\Exceptions\ZarinpalException;
 use D3cr33\Payment\Models\GatewayTransaction;
 use SoapClient;
@@ -48,7 +47,9 @@ class ZarinpalPort extends PortGateway
             }
 
         }catch(Exception $e){
-            throw new PortGatewayException($e);
+            $this->setResponse((object)[
+                'Message'   =>  $e->getMessage()
+            ]);
         }
 
         $this->createLog();
@@ -103,6 +104,9 @@ class ZarinpalPort extends PortGateway
                 ];
             }
         }catch(Exception $e){
+            $this->setResponse((object)[
+                'Message'   =>  $e->getMessage()
+            ]);
             $this->paymentFailed();
             $this->createLog();
         }
@@ -117,8 +121,8 @@ class ZarinpalPort extends PortGateway
     {
         $this->initializePortResponse([
             'status'    =>  isset($result->Status) && ($result->Status == 100 || $result->Status == 101) ? true : false,
-            'status_code'   =>  isset($result->Status) ? $result->Status : null,
-            'message'   =>  isset($result->Status) ? ZarinpalException::getMessageFromStatusCode($result->Status) : null,
+            'status_code'   =>  isset($result->Status) ? $result->Status : 500,
+            'message'   =>  isset($result->Status) ? ZarinpalException::getMessageFromStatusCode($result->Status) : $result->Message ?? null,
             'authority' => isset($result->Authority) && $result->Authority != "" ? $result->Authority : null
         ]);
     }
