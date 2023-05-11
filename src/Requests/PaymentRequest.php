@@ -94,7 +94,7 @@ final class PaymentRequest
             $this->callback = $paymentData['callback'] ?? null;
             $this->callbackData = $paymentData['callback_data'] ?? null;
         }catch(Exception $e){
-            throw new PaymentRequestException($e);
+            throw new PaymentRequestException($e->getMessage());
         }
     }
 
