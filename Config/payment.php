@@ -13,5 +13,7 @@ return [
         'TEST_GATE' =>  'https://sandbox.zarinpal.com/pg/StartPay/',
     ],
 
-    'PAYMENT_CALLBACK' => env('APP_URL').'/payment/callback',
+    'ADDITIONAL'    =>  [
+        'PAYMENT_CALLBACK' => env('APP_URL').'/payment/callback',
+    ]
 ];
