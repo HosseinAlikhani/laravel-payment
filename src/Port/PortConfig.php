@@ -57,7 +57,7 @@ final class PortConfig
         try{
             $config = config('payment.'.strtoupper($port));
             $this->apiKey = $config['API_KEY'];
-            $this->callbackUrl = $config['PAYMENT_CALLBACK'] ?? config('payment.PAYMENT_CALLBACK');
+            $this->callbackUrl = $config['PAYMENT_CALLBACK'] ?? config('payment.ADDITIONAL.PAYMENT_CALLBACK');
             if ( isset($config['IS_TEST']) ) {
                 $this->send = $config['TEST_SEND'];
                 $this->gate = $config['TEST_GATE'];
