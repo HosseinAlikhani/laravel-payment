@@ -28,8 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "D3cr33\\Payment\\": "src",
-            "D3cr33\\Payment\\Test\\": "tests"
+            "D3cr33\\Payment\\": "src"
         }
     },
     "autoload-dev": {
