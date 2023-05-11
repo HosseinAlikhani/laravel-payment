@@ -20,4 +20,13 @@ final class PaymentFaker
     {
         return fake()->lexify("????????") . "\\" . fake()->lexify("????????") . "\\" . fake()->lexify("????????");
     }
+
+    /**
+     * generate fake amount
+     * @return int
+     */
+    public function amount(): int
+    {
+        return fake()->numerify("####000");
+    }
 }
