@@ -29,4 +29,13 @@ final class PaymentFaker
     {
         return fake()->numerify("####000");
     }
+
+    /**
+     * generate fake description
+     * @return string
+     */
+    public function description(): string
+    {
+        return fake()->text(100);
+    }
 }
