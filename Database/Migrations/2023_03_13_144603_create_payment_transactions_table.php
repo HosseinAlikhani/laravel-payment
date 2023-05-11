@@ -15,8 +15,7 @@ return new class extends Migration
         Schema::create('payment_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->string('model_type');
-            $table->unsignedInteger('model_id');
+            $table->morphs('model');
             $table->string('tracking_code');
             $table->integer('module');
             $table->integer('amount');
