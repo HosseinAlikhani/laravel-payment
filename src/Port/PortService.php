@@ -31,5 +31,13 @@ final class PortService
         return self::$instance;
     }
 
-
+    /**
+     * is port valid
+     * @param string $port
+     * @return bool
+     */
+    public function isPortValid(string $port): bool
+    {
+        return key_exists( strtoupper($port) , $this->ports) ? true : false;
+    }
 }
