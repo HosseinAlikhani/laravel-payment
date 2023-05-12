@@ -77,6 +77,6 @@ final class PortConfig
      */
     public static function getPortNamespace(int $port): string
     {
-        return self::PORT_NAMESPACE[ self::AVAILABLE_PORT[$port] ];
+        return PortService::initialize()->getPortNamespace($port);
     }
 }
