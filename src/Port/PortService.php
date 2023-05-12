@@ -40,4 +40,24 @@ final class PortService
     {
         return key_exists( strtoupper($port) , $this->ports) ? true : false;
     }
+
+    /**
+     * get port namespace
+     * @param string $port
+     * @return string|bool
+     */
+    public function getPortNamespace(string $port): string|bool
+    {
+        if(! $this->isPortValid($port) ){
+            return false;
+        }
+
+        $targetPort = $this->ports[strtoupper($port)];
+
+        if(! isset($targetPort['NAMESPACE']) ){
+            return false;
+        }
+
+        return $targetPort['NAMESPACE'];
+    }
 }
