@@ -2,6 +2,8 @@
 return [
 
     'ZARINPAL' => [
+        'ACTIVE'    =>  true,
+        'NAMESPACE' =>  '',
         'IS_TEST' => true,
 
         'API_KEY'  =>  '1122334455667788998811223344556677',
