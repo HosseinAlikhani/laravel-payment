@@ -10,10 +10,6 @@ final class PortConfig
         1   =>  'zarinpal'
     ];
 
-    private const PORT_NAMESPACE = [
-        'zarinpal'  =>  ZarinpalPort::class
-    ];
-
     /**
      * store api key
      * @var string
