@@ -38,7 +38,17 @@ final class PortService
      */
     public function isPortValid(string $port): bool
     {
-        return key_exists( strtoupper($port) , $this->ports) ? true : false;
+        $port = strtoupper($port);
+        $targetPort = key_exists( $port , $this->ports) ? $this->ports[$port] : false;
+        if(! $targetPort ){
+            return false;
+        }
+
+        if(! isset($targetPort['ACTIVE']) || ! $targetPort['ACTIVE'] ){
+            return false;
+        }
+
+        return true;
     }
 
     /**
