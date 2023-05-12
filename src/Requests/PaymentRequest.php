@@ -3,7 +3,7 @@ namespace D3cr33\Payment\Requests;
 
 use Exception;
 use D3cr33\Payment\Exceptions\PaymentRequestException;
-use D3cr33\Payment\Port\PortConfig;
+use D3cr33\Payment\Port\PortService;
 
 final class PaymentRequest
 {
@@ -119,7 +119,7 @@ final class PaymentRequest
      */
     public function checkPort(int $port): int
     {
-        if ( key_exists($port, PortConfig::AVAILABLE_PORT) ){
+        if ( PortService::initialize()->isPortValid($port) ){
             return $port;
         } else {
             throw new PaymentRequestException("port id ($port) is not valid data");
