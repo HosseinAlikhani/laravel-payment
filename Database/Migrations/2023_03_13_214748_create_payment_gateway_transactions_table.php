@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('payment_gateway_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaction_id');
-            $table->integer('port');
+            $table->string('port');
             $table->integer('amount');
             $table->string('ref_id')->nullable();
             $table->string('tracking_code');
