@@ -1,6 +1,8 @@
 <?php
 namespace D3cr33\Payment\HttpService;
 
+use SoapClient;
+
 final class SoapClientService
 {
     /**
@@ -69,5 +71,16 @@ final class SoapClientService
     {
         $this->timeout = $timeout;
         return $this;
+    }
+
+    /**
+     * initialize client instance
+     */
+    private function client()
+    {
+        return new SoapClient($this->url, [
+            'encoding' => $this->encoding,
+            'connection_timeout'    =>  $this->timeout
+        ]);
     }
 }
