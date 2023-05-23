@@ -10,6 +10,12 @@ final class SoapClientService
     private static $instance;
 
     /**
+     * store client url
+     * @var string
+     */
+    private string $url;
+
+    /**
      * initialize soap client service
      * @return SoapClientService
      */
@@ -19,5 +25,16 @@ final class SoapClientService
             self::$instance = new self();
         }
         return self::$instance;
+    }
+
+    /**
+     * set url for client
+     * @param string $url
+     * @return self
+     */
+    public function setUrl(string $url):self
+    {
+        $this->url = $url;
+        return $this;
     }
 }
