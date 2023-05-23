@@ -74,9 +74,19 @@ final class SoapClientService
     }
 
     /**
-     * initialize client instance
+     * fire payment request
+     * @param array $data
      */
-    private function client()
+    public function paymentRequest(array $data)
+    {
+        return $this->client()->PaymentRequest($data);
+    }
+
+    /**
+     * initialize client instance
+     * @return SoapClient
+     */
+    private function client(): SoapClient
     {
         return new SoapClient($this->url, [
             'encoding' => $this->encoding,
