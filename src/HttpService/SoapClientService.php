@@ -16,6 +16,11 @@ final class SoapClientService
     private string $url;
 
     /**
+     * store service timeout
+     */
+    private int $timeout;
+
+    /**
      * initialize soap client service
      * @return SoapClientService
      */
@@ -30,11 +35,22 @@ final class SoapClientService
     /**
      * set url for client
      * @param string $url
-     * @return self
+     * @return SoapClientService
      */
     public function setUrl(string $url):self
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * set service timeout
+     * @param int $timeout
+     * @return SoapClientService
+     */
+    public function setTimeout(int $timeout): self
+    {
+        $this->timeout = $timeout;
         return $this;
     }
 }
