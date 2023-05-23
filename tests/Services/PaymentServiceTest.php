@@ -16,7 +16,7 @@ class PaymentServiceTest extends TestCase
             'module'    =>  'management',
             'amount'    =>  $this->faker->amount(),
             'description'   =>  $this->faker->description(),
-            'port'  =>  1
+            'port'  =>  $this->faker->port()
         ]);
     }
 }
