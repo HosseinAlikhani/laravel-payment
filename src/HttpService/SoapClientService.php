@@ -18,7 +18,13 @@ final class SoapClientService
     /**
      * store service timeout
      */
-    private int $timeout;
+    private int $timeout = 10;
+
+    /**
+     * store service encoding
+     * @param string
+     */
+    private string $encoding = 'UTF-8';
 
     /**
      * initialize soap client service
@@ -40,6 +46,17 @@ final class SoapClientService
     public function setUrl(string $url):self
     {
         $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * set service encoding
+     * @param string $encoding
+     * @return SoapClientService
+     */
+    public function setEncoding(string $encoding): self
+    {
+        $this->encoding = $encoding;
         return $this;
     }
 
