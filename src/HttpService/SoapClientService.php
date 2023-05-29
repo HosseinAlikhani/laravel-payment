@@ -3,7 +3,7 @@ namespace D3cr33\Payment\HttpService;
 
 use SoapClient;
 
-final class SoapClientService
+class SoapClientService
 {
     /**
      * store soap client service instance
@@ -35,7 +35,7 @@ final class SoapClientService
     public static function initialize(): self
     {
         if(! self::$instance){
-            self::$instance = new self();
+            self::$instance = app(SoapClientService::class);
         }
         return self::$instance;
     }
