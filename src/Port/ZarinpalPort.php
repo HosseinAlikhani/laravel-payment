@@ -42,7 +42,8 @@ class ZarinpalPort extends PortGateway
 
                 return [
                     'status'    =>  true,
-                    'url'   => $this->portConfig->gate.$this->portResponse->authority
+                    'url'   => $this->portConfig->gate.$this->portResponse->authority,
+                    'authority' =>  $this->portResponse->authority
                 ];
             }
 
