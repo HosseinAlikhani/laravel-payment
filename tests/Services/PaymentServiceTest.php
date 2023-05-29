@@ -24,4 +24,29 @@ class PaymentServiceTest extends TestCase
         $this->assertEquals(true, $result['status']);
         $this->assertArrayHasKey('url', $result);
     }
+
+    /**
+     * test payment service payment callback success
+     */
+    public function test_payment_service_payment_callback_failed()
+    {
+        $service = app(PaymentService::class);
+
+        $resultPayment = $service->payment([
+            'user_id'   =>  $this->faker->uniqueId(),
+            'model_type'   =>  $this->faker->modelType(),
+            'model_id' =>  $this->faker->uniqueId(),
+            'module'    =>  'management',
+            'amount'    =>  $this->faker->amount(),
+            'description'   =>  $this->faker->description(),
+            'port'  =>  $this->faker->port()
+        ]);
+
+        $result = $service->paymentCallback([
+            'Authority' =>  $resultPayment['authority'],
+            'Status'    =>  'OK'
+        ]);
+
+        $this->assertEquals(false, $result['status']);
+    }
 }
