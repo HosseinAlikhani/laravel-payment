@@ -48,7 +48,8 @@ class ZarinpalPort extends PortGateway
 
         }catch(Exception $e){
             $this->setResponse((object)[
-                'Message'   =>  $e->getMessage()
+                'Message'   =>  $e->getMessage(),
+                'Status'    =>  500
             ]);
         }
 
