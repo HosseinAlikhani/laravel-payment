@@ -3,6 +3,7 @@ namespace D3cr33\Payment\Port;
 
 use Exception;
 use D3cr33\Payment\Exceptions\ZarinpalException;
+use D3cr33\Payment\HttpService\SoapClientService;
 use D3cr33\Payment\Models\GatewayTransaction;
 use SoapClient;
 
@@ -23,20 +24,19 @@ class ZarinpalPort extends PortGateway
     public function send()
     {
         try {
-            $client = new SoapClient($this->portConfig->send, [
-                'encoding' => 'UTF-8',
-                'connection_timeout'    =>  10
-            ]);
-
-            $this->setResponse($client->PaymentRequest([
-                'MerchantID'     => $this->portConfig->apiKey,
-                'Amount'         => $this->amount,
-                'Description'    => 'zarinpal gateway',
-                'Email'          => null,
-                'Mobile'         => null,
-                'CallbackURL'    => $this->portConfig->callbackUrl,
-            ]));
-
+            $this->setResponse(
+                SoapClientService::initialize()
+                ->setUrl($this->portConfig->send)
+                ->paymentRequest([
+                    'MerchantID'     => $this->portConfig->apiKey,
+                    'Amount'         => $this->amount,
+                    'Description'    => 'zarinpal gateway',
+                    'Email'          => null,
+                    'Mobile'         => null,
+                    'CallbackURL'    => $this->portConfig->callbackUrl,
+                ])
+            );
+            
             if ( $this->portResponse->status ) {
                 $this->setRefToGatewayTransaction();
 
