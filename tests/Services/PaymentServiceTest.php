@@ -1,15 +1,17 @@
 <?php
 namespace D3cr33\Payment\Test\Services;
 
+use D3cr33\Payment\HttpService\SoapClientService;
 use D3cr33\Payment\Services\PaymentService;
 use D3cr33\Payment\Test\TestCase;
+use Mockery\MockInterface;
 
 class PaymentServiceTest extends TestCase 
 {
     public function test_payment_service_payment_method_validation()
     {
-        $s = app(PaymentService::class);
-        $s->payment([
+        $service = app(PaymentService::class);
+        $result = $service->payment([
             'user_id'   =>  $this->faker->uniqueId(),
             'model_type'   =>  $this->faker->modelType(),
             'model_id' =>  $this->faker->uniqueId(),
@@ -18,5 +20,8 @@ class PaymentServiceTest extends TestCase
             'description'   =>  $this->faker->description(),
             'port'  =>  $this->faker->port()
         ]);
+
+        $this->assertEquals(true, $result['status']);
+        $this->assertArrayHasKey('url', $result);
     }
 }
