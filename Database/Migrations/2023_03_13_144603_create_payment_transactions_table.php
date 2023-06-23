@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('module');
             $table->integer('amount');
             $table->text('description')->nullable();
-            $table->integer('port');
+            $table->string('port');
             $table->enum('status', [
                 Transaction::STATUS_INIT,
                 Transaction::STATUS_SUCCEED,

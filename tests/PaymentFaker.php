@@ -13,6 +13,15 @@ final class PaymentFaker
     }
 
     /**
+     * generate fake port
+     * @return string
+     */
+    public function port(): STRING
+    {
+        return 'ZARINPAL';
+    }
+
+    /**
      * generate fake model type
      * @return string
      */
