@@ -45,9 +45,9 @@ final class PaymentRequest
 
     /**
      * store port
-     * @var int
+     * @var string
      */
-    public int $port;
+    public string $port;
 
     /**
      * store callback
@@ -114,10 +114,10 @@ final class PaymentRequest
 
     /**
      * check port is available or not
-     * @param int $port
-     * @return int
+     * @param string $port
+     * @return string
      */
-    public function checkPort(int $port): int
+    public function checkPort(string $port): string
     {
         if ( PortService::initialize()->isPortValid($port) ){
             return $port;
