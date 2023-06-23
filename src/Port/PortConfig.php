@@ -68,10 +68,10 @@ final class PortConfig
 
     /**
      * return port namespace
-     * @param int $port
+     * @param string $port
      * @return string
      */
-    public static function getPortNamespace(int $port): string
+    public static function getPortNamespace(string $port): string
     {
         return PortService::initialize()->getPortNamespace($port);
     }
