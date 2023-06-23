@@ -12,6 +12,9 @@ class PortController
      */
     private Request $request;
 
+    /**
+     * @var Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
