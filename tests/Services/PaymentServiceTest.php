@@ -16,7 +16,6 @@ class PaymentServiceTest extends TestCase
                 ->shouldReceive('paymentRequest')
                 ->andReturn((object)[
                     'Status'    =>  100,
-                    'message'   =>  'from mock service',
                     'Authority' =>  $this->faker->authority()
                 ]);
         });
@@ -39,7 +38,7 @@ class PaymentServiceTest extends TestCase
     /**
      * test payment service payment callback success
      */
-    public function test_payment_service_payment_callback_failed()
+    public function test_payment_service_payment_callback_succeed()
     {
         $service = app(PaymentService::class);
 
@@ -53,11 +52,22 @@ class PaymentServiceTest extends TestCase
             'port'  =>  $this->faker->port()
         ]);
 
+        $this->mock(SoapClientService::class, function(MockInterface $mock){
+            $mock->shouldReceive('setUrl')
+                ->andReturnSelf()
+                ->shouldReceive('paymentVerification')
+                ->andReturn((object)[
+                    'Status'    =>  100,
+                    'Authority' =>  $this->faker->authority()
+                ]);
+        });
+
         $result = $service->paymentCallback([
             'Authority' =>  $resultPayment['authority'],
             'Status'    =>  'OK'
         ]);
 
-        $this->assertEquals(false, $result['status']);
+        $this->assertEquals(true, $result['status']);
+        $this->assertEquals(trans('payment::messages.payment_succeed'), $result['message']);
     }
 }
