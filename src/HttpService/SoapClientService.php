@@ -83,6 +83,15 @@ class SoapClientService
     }
 
     /**
+     * fire payment verification request
+     * @param array $data
+     */
+    public function paymentVerification(array $data)
+    {
+        return $this->client()->PaymentVerification($data);
+    }
+
+    /**
      * initialize client instance
      * @return SoapClient
      */
