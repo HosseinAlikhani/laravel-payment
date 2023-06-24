@@ -6,10 +6,21 @@ use D3cr33\Payment\Services\PaymentService;
 use D3cr33\Payment\Test\TestCase;
 use Mockery\MockInterface;
 
-class PaymentServiceTest extends TestCase 
+class PaymentServiceTest extends TestCase
 {
     public function test_payment_service_payment_method_validation()
     {
+        $this->mock(SoapClientService::class, function(MockInterface $mock){
+            $mock->shouldReceive('setUrl')
+                ->andReturnSelf()
+                ->shouldReceive('paymentRequest')
+                ->andReturn((object)[
+                    'Status'    =>  100,
+                    'message'   =>  'from mock service',
+                    'Authority' =>  $this->faker->authority()
+                ]);
+        });
+
         $service = app(PaymentService::class);
         $result = $service->payment([
             'user_id'   =>  $this->faker->uniqueId(),
