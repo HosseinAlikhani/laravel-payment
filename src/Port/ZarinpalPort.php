@@ -24,19 +24,20 @@ class ZarinpalPort extends PortGateway
     public function send()
     {
         try {
+            $soapClientService = app(SoapClientService::class);
             $this->setResponse(
-                SoapClientService::initialize()
-                ->setUrl($this->portConfig->send)
-                ->paymentRequest([
-                    'MerchantID'     => $this->portConfig->apiKey,
-                    'Amount'         => $this->amount,
-                    'Description'    => 'zarinpal gateway',
-                    'Email'          => null,
-                    'Mobile'         => null,
-                    'CallbackURL'    => $this->portConfig->callbackUrl,
-                ])
+                $soapClientService
+                    ->setUrl($this->portConfig->send)
+                    ->paymentRequest([
+                        'MerchantID'     => $this->portConfig->apiKey,
+                        'Amount'         => $this->amount,
+                        'Description'    => 'zarinpal gateway',
+                        'Email'          => null,
+                        'Mobile'         => null,
+                        'CallbackURL'    => $this->portConfig->callbackUrl,
+                    ])
             );
-            
+
             if ( $this->portResponse->status ) {
                 $this->setRefToGatewayTransaction();
 
