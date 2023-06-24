@@ -47,4 +47,13 @@ final class PaymentFaker
     {
         return fake()->text(100);
     }
+
+    /**
+     * generate fake authority
+     * @return string
+     */
+    public function authority(): string
+    {
+        return fake()->numerify("00000000000000000000000000000#######");
+    }
 }
