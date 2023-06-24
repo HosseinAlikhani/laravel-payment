@@ -80,16 +80,16 @@ class ZarinpalPort extends PortGateway
         }
 
         try {
-            $client = new SoapClient($this->portConfig->send, [
-                'encoding' => 'UTF-8',
-                'connection_timeout'    =>  10
-            ]);
-
-            $this->setResponse($client->PaymentVerification([
-                'MerchantID'     => $this->portConfig->apiKey,
-                'Authority' => $verifyData['Authority'],
-                'Amount' => $this->amount
-            ]));
+            $soapClientService = app(SoapClientService::class);
+            $this->setResponse(
+                $r = $soapClientService
+                    ->setUrl($this->portConfig->send)
+                    ->paymentVerification([
+                        'MerchantID'     => $this->portConfig->apiKey,
+                        'Authority' => $verifyData['Authority'],
+                        'Amount' => $this->amount
+                    ])
+            );
 
             if( $this->portResponse->status ) {
                 $this->paymentSucceed();
