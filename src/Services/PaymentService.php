@@ -52,7 +52,7 @@ final class PaymentService
         if(! $transaction ) {
             return [
                 'status'    =>  Response::HTTP_UNPROCESSABLE_ENTITY,
-                'message'   =>  'not found'
+                'message'   =>  trans('payment::messages.transaction_not_found')
             ];
         }
 
