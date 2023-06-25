@@ -70,4 +70,20 @@ class PaymentServiceTest extends TestCase
         $this->assertEquals(true, $result['status']);
         $this->assertEquals(trans('payment::messages.payment_succeed'), $result['message']);
     }
+
+    /**
+     * test payment callback with raised not found transaction error
+     */
+    public function test_payment_service_payment_callback_transaction_not_found()
+    {
+        $service = app(PaymentService::class);
+        $result = $service->paymentCallback([
+            'Authority' =>  $this->faker->authority(),
+            'Status'    =>  'OK'
+        ]);
+
+        $this->assertEquals(422, $result['status']);
+        $this->assertEquals(trans('payment::messages.transaction_not_found'), $result['message']);
+
+    }
 }
