@@ -29,7 +29,7 @@ class PortController
     {
         return [
             [
-                'id'    =>  1,
+                'id'    =>  strtoupper(current(PortConfig::AVAILABLE_PORT)),
                 'name'  =>  current(PortConfig::AVAILABLE_PORT),
                 'fa_name'   =>  'زرین پال',
                 'icon_url'  =>  url('storage/port/zarinpal.png')
